@@ -482,10 +482,12 @@ body::before {
 ════════════════════ */
 .status-ticker {
   position: fixed; top: 33px; left: 0; right: 0; z-index: 800;
-  background: var(--teal);
+  background: #020c14;
+  border-top: 1px solid rgba(0,229,184,0.25);
+  border-bottom: 1px solid rgba(0,229,184,0.25);
   overflow: hidden;
   white-space: nowrap;
-  height: 22px;
+  height: 36px;
   display: flex;
   align-items: center;
   transition: top 0.38s cubic-bezier(0.4,0,0.2,1);
@@ -501,14 +503,22 @@ body::before {
 }
 .ticker-text {
   display: inline-block;
-  color: #020508;
+  color: var(--teal);
   font-family: 'Share Tech Mono', monospace;
-  font-size: 0.65rem; letter-spacing: 0.28em;
+  font-size: 0.88rem; letter-spacing: 0.22em;
   font-weight: 900; text-transform: uppercase;
   white-space: nowrap;
-  padding-right: 8rem;
+  padding-right: 6rem;
   line-height: 1;
   vertical-align: middle;
+}
+.ticker-text .ticker-dot {
+  display: inline-block;
+  width: 5px; height: 5px; border-radius: 50%;
+  background: var(--gold);
+  margin: 0 0.6rem;
+  vertical-align: middle;
+  position: relative; top: -1px;
 }
 @keyframes ticker-run {
   0%   { transform: translateX(0); }
@@ -519,7 +529,7 @@ body::before {
    NAVIGATION
 ════════════════════ */
 nav {
-  position: fixed; top: 56px; left: 0; right: 0; z-index: 700;
+  position: fixed; top: 69px; left: 0; right: 0; z-index: 700;
   display: flex; align-items: center; justify-content: space-between;
   padding: 0 3.5rem; height: 62px;
   background: rgba(2,5,8,0.98);
@@ -573,7 +583,7 @@ nav {
   background: rgba(2,5,8,0.99);
   border-bottom: 1px solid rgba(0,229,184,0.15);
   padding: 0.75rem 3.5rem;
-  margin-top: 118px;
+  margin-top: 131px;
   display: flex; align-items: center; justify-content: space-between; gap: 1.5rem;
   flex-wrap: wrap;
 }
@@ -1329,8 +1339,8 @@ footer { position: relative; z-index: 1; background: var(--void); border-top: 1p
 <!-- ══ STATUS TICKER ══ -->
 <div class="status-ticker">
   <div class="ticker-inner">
-    <span class="ticker-text">⚡ GLOBAL ACQUISITION OPEN &nbsp;·&nbsp; 2Cr+ GST &nbsp;·&nbsp; SOVEREIGN .COM &nbsp;·&nbsp; ESCROW-SECURED &nbsp;·&nbsp; SERIOUS BUYERS ONLY &nbsp;·&nbsp; AI &nbsp;·&nbsp; DEFENCE &nbsp;·&nbsp; CYBERSECURITY &nbsp;·&nbsp; QUANTUM &nbsp;·&nbsp; AEROSPACE</span>
-    <span class="ticker-text">⚡ GLOBAL ACQUISITION OPEN &nbsp;·&nbsp; 2Cr+ GST &nbsp;·&nbsp; SOVEREIGN .COM &nbsp;·&nbsp; ESCROW-SECURED &nbsp;·&nbsp; SERIOUS BUYERS ONLY &nbsp;·&nbsp; AI &nbsp;·&nbsp; DEFENCE &nbsp;·&nbsp; CYBERSECURITY &nbsp;·&nbsp; QUANTUM &nbsp;·&nbsp; AEROSPACE</span>
+    <span class="ticker-text">⚡ GLOBAL ACQUISITION OPEN <span class="ticker-dot"></span> 2Cr+ GST <span class="ticker-dot"></span> SOVEREIGN .COM <span class="ticker-dot"></span> ESCROW-SECURED <span class="ticker-dot"></span> SERIOUS BUYERS ONLY <span class="ticker-dot"></span> AI <span class="ticker-dot"></span> DEFENCE <span class="ticker-dot"></span> CYBERSECURITY <span class="ticker-dot"></span> QUANTUM <span class="ticker-dot"></span> AEROSPACE &nbsp;&nbsp;&nbsp;&nbsp;</span>
+    <span class="ticker-text">⚡ GLOBAL ACQUISITION OPEN <span class="ticker-dot"></span> 2Cr+ GST <span class="ticker-dot"></span> SOVEREIGN .COM <span class="ticker-dot"></span> ESCROW-SECURED <span class="ticker-dot"></span> SERIOUS BUYERS ONLY <span class="ticker-dot"></span> AI <span class="ticker-dot"></span> DEFENCE <span class="ticker-dot"></span> CYBERSECURITY <span class="ticker-dot"></span> QUANTUM <span class="ticker-dot"></span> AEROSPACE &nbsp;&nbsp;&nbsp;&nbsp;</span>
   </div>
 </div>
 

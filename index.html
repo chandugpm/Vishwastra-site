@@ -328,7 +328,7 @@
 <!-- ═══ PERFORMANCE HINTS ═══ -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="dns-prefetch" href="https://formspree.io">
+<link rel="dns-prefetch" href="https://formsubmit.co">
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Barlow:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Barlow+Condensed:wght@400;500;600;700;800&family=Share+Tech+Mono&display=swap" rel="stylesheet">
 
 <!-- ═══ SECURITY HTTP-EQUIV META ═══ -->
@@ -2583,28 +2583,27 @@ function submitInquiry() {
   btn.textContent = '⟳ Sending...';
   btn.disabled = true;
 
-  const formData = new FormData();
-  formData.append('name', name);
-  formData.append('organisation', org || '—');
-  formData.append('email', email);
-  formData.append('sector', usecase || '—');
-  formData.append('message', msg || '—');
-  formData.append('_subject', 'Vishwastra — Acquisition Enquiry from ' + name);
+  // ══ LAYER 1 — Formsubmit.co (Zero-setup, direct email delivery) ══
+  // NOTE: First submission triggers a ONE-TIME activation email to vishwaxofficial@gmail.com
+  // Click "Activate Form" in that email — all future submissions will deliver automatically.
+  const payload = {
+    name        : name,
+    organisation: org || '—',
+    email       : email,
+    sector      : usecase || '—',
+    message     : msg || '—',
+    _subject    : 'Vishwastra — Acquisition Enquiry from ' + name,
+    _template   : 'table',
+    _captcha    : 'false',
+    _replyto    : email
+  };
 
-  // ══ FORMSPREE: Configured for vishwaxofficial@gmail.com ══
-  // 1. Go to formspree.io → Sign up → New Form → set notification to vishwaxofficial@gmail.com
-  // 2. Get your Form ID (e.g. xpzgkwqr) and replace YOUR_FORMSPREE_ID below
-  fetch('https://formspree.io/f/YOUR_FORMSPREE_ID', {
-    method: 'POST',
-    body: formData,
-    headers: { 'Accept': 'application/json' }
-  })
-  .then(res => {
+  function showSuccess() {
     document.getElementById('mForm').style.display = 'none';
     document.getElementById('mSuccess').classList.add('show');
-  })
-  .catch(() => {
-    // Fallback: open mailto if Formspree fails
+  }
+
+  function mailtoFallback() {
     const subject = encodeURIComponent('Vishwastra — Acquisition Enquiry from ' + name);
     const body = encodeURIComponent(
       'ACQUISITION ENQUIRY — VISHWASTRA.COM\n' +
@@ -2615,11 +2614,33 @@ function submitInquiry() {
       'Sector:        ' + (usecase || '—') + '\n\n' +
       'Message:\n' + (msg || '—') + '\n\n' +
       '═══════════════════════════════════\n' +
-      'Sent via Vishwastra.com v5 Acquisition Page'
+      'Sent via Vishwastra.com Acquisition Page'
     );
     window.open('mailto:vishwaxofficial@gmail.com?subject=' + subject + '&body=' + body);
-    document.getElementById('mForm').style.display = 'none';
-    document.getElementById('mSuccess').classList.add('show');
+  }
+
+  fetch('https://formsubmit.co/ajax/vishwaxofficial@gmail.com', {
+    method : 'POST',
+    headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+    body   : JSON.stringify(payload)
+  })
+  .then(res => {
+    if (!res.ok) throw new Error('Formsubmit non-OK: ' + res.status);
+    return res.json();
+  })
+  .then(data => {
+    if (data && data.success === 'true') {
+      showSuccess();
+    } else {
+      // ══ LAYER 2 — Mailto fallback if API returns unexpected response ══
+      mailtoFallback();
+      showSuccess();
+    }
+  })
+  .catch(() => {
+    // ══ LAYER 2 — Mailto fallback on any network / CORS failure ══
+    mailtoFallback();
+    showSuccess();
   })
   .finally(() => {
     btn.textContent = '⊕ Send Acquisition Request';

@@ -109,19 +109,77 @@
       "description": "Vishwastra.com is a sovereign-grade premium .COM domain name and global brand identity available for strategic acquisition. The brand covers AI, Defence Technology, Quantum Computing, Cybersecurity, Aerospace, and Deep-Tech sectors. Sanskrit-origin name with universal pronounceability, zero competition, and full SEO dominance.",
       "brand": {
         "@type": "Brand",
+        "@id": "https://vishwastra.com/#brand",
         "name": "Vishwastra"
       },
+      "image": [
+        {
+          "@type": "ImageObject",
+          "url": "https://vishwastra.com/og-image.jpg",
+          "width": 1200,
+          "height": 630,
+          "caption": "Vishwastra — Sovereign-Grade Premium .COM Brand for AI, Defence, Quantum & Cybersecurity"
+        },
+        {
+          "@type": "ImageObject",
+          "url": "https://vishwastra.com/logo.jpg",
+          "width": 512,
+          "height": 512,
+          "caption": "Vishwastra Brand Logo — VishwaX Technologies Pvt Ltd"
+        }
+      ],
       "offers": {
         "@type": "Offer",
+        "@id": "https://vishwastra.com/#offer",
         "priceCurrency": "INR",
         "price": "20000000",
         "priceValidUntil": "2026-12-31",
         "availability": "https://schema.org/InStock",
+        "itemCondition": "https://schema.org/NewCondition",
         "seller": {
           "@id": "https://vishwastra.com/#organization"
         },
         "description": "Starting from ₹2 Crore + GST. Final price subject to negotiation based on use case. Escrow-secured transfer via Dan.com, Afternic, or Escrow.com.",
-        "url": "https://vishwastra.com/#acquire"
+        "url": "https://vishwastra.com/#acquire",
+        "hasMerchantReturnPolicy": {
+          "@type": "MerchantReturnPolicy",
+          "@id": "https://vishwastra.com/#return-policy",
+          "applicableCountry": "IN",
+          "returnPolicyCategory": "https://schema.org/MerchantReturnFiniteReturnWindow",
+          "merchantReturnDays": 0,
+          "returnMethod": "https://schema.org/ReturnByMail",
+          "returnFees": "https://schema.org/FreeReturn",
+          "description": "This is a digital domain asset. All sales are final. The domain name and brand IP are delivered electronically via escrow-secured registrar push within 1-5 business days of confirmed payment. No physical goods are transferred."
+        },
+        "shippingDetails": {
+          "@type": "OfferShippingDetails",
+          "@id": "https://vishwastra.com/#shipping-details",
+          "shippingRate": {
+            "@type": "MonetaryAmount",
+            "value": "0",
+            "currency": "INR"
+          },
+          "deliveryTime": {
+            "@type": "ShippingDeliveryTime",
+            "handlingTime": {
+              "@type": "QuantitativeValue",
+              "minValue": 1,
+              "maxValue": 5,
+              "unitCode": "DAY"
+            },
+            "transitTime": {
+              "@type": "QuantitativeValue",
+              "minValue": 0,
+              "maxValue": 0,
+              "unitCode": "DAY"
+            }
+          },
+          "shippingDestination": {
+            "@type": "DefinedRegion",
+            "addressCountry": "IN"
+          },
+          "description": "Digital asset delivery via registrar push (Dan.com, Afternic, or Escrow.com). No physical shipment. Transfer completes within 1-5 business days of full payment confirmation. Zero delivery cost."
+        }
       },
       "additionalProperty": [
         { "@type": "PropertyValue", "name": "TLD", "value": ".COM (Global Premium)" },

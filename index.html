@@ -420,6 +420,10 @@ body::before {
   border-bottom: 1px solid rgba(0,229,184,0.3);
   padding: 0.55rem 2.5rem;
   display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+  transition: transform 0.38s cubic-bezier(0.4,0,0.2,1);
+}
+.acq-banner.banner-hidden {
+  transform: translateY(-100%);
 }
 .acq-banner-left {
   display: flex; align-items: center; gap: 0.75rem;
@@ -430,6 +434,13 @@ body::before {
   background: var(--teal); color: var(--void);
   padding: 0.22rem 0.65rem; font-weight: 900;
   text-transform: uppercase; flex-shrink: 0;
+  cursor: pointer; border: none; outline: none;
+  user-select: none;
+  transition: background 0.2s, color 0.2s;
+}
+.acq-badge:hover { background: #00c8a0; }
+.acq-badge.badge-closed {
+  background: var(--gold); color: var(--void);
 }
 .acq-banner-title {
   font-family: 'Cinzel', serif;
@@ -451,18 +462,57 @@ body::before {
   color: var(--gold); letter-spacing: 0.06em;
 }
 
+/* Floating re-open tab when banner is hidden */
+.banner-reopen {
+  position: fixed; top: 0; left: 50%; transform: translateX(-50%);
+  z-index: 901; background: var(--gold); color: var(--void);
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.58rem; letter-spacing: 0.25em; font-weight: 900;
+  padding: 0.18rem 1rem; cursor: pointer;
+  border: none; outline: none;
+  display: none; text-transform: uppercase;
+  transition: background 0.2s;
+  border-bottom-left-radius: 3px; border-bottom-right-radius: 3px;
+}
+.banner-reopen.visible { display: block; }
+.banner-reopen:hover { background: #d4982e; }
+
 /* ════════════════════
    STATUS TICKER
 ════════════════════ */
 .status-ticker {
   position: fixed; top: 33px; left: 0; right: 0; z-index: 800;
   background: var(--teal);
-  color: var(--void);
+  overflow: hidden;
+  white-space: nowrap;
+  height: 22px;
+  display: flex;
+  align-items: center;
+  transition: top 0.38s cubic-bezier(0.4,0,0.2,1);
+}
+.status-ticker.ticker-top { top: 0; }
+.ticker-inner {
+  display: inline-block;
+  white-space: nowrap;
+  animation: ticker-run 35s linear infinite;
+  will-change: transform;
+  line-height: 1;
+  vertical-align: middle;
+}
+.ticker-text {
+  display: inline-block;
+  color: #020508;
   font-family: 'Share Tech Mono', monospace;
   font-size: 0.65rem; letter-spacing: 0.28em;
-  text-align: center; padding: 0.25rem 1rem;
   font-weight: 900; text-transform: uppercase;
-  overflow: hidden;
+  white-space: nowrap;
+  padding-right: 8rem;
+  line-height: 1;
+  vertical-align: middle;
+}
+@keyframes ticker-run {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
 }
 
 /* ════════════════════
@@ -785,7 +835,11 @@ nav {
 }
 .etym-headline .v { color: var(--teal); }
 .etym-headline .a { color: var(--gold); }
-.etym-headline .rest { color: rgba(255,255,255,0.1); }
+.etym-headline .rest {
+  color: transparent;
+  -webkit-text-stroke: 2px rgba(0,229,184,0.35);
+  text-stroke: 2px rgba(0,229,184,0.35);
+}
 .etym-cards {
   display: grid;
   grid-template-columns: 1fr 56px 1fr 56px 1fr;
@@ -1260,9 +1314,10 @@ footer { position: relative; z-index: 1; background: var(--void); border-top: 1p
 <body>
 
 <!-- ══ TOP ACQUISITION BANNER ══ -->
-<div class="acq-banner">
+<button class="banner-reopen" id="bannerReopen" onclick="toggleBanner()">⊕ FOR SALE — CLICK TO EXPAND</button>
+<div class="acq-banner" id="acqBanner">
   <div class="acq-banner-left">
-    <div class="acq-badge">⊕ For Sale</div>
+    <button class="acq-badge" id="acqBadge" onclick="toggleBanner()" title="Click to hide banner">⊕ For Sale</button>
     <div class="acq-banner-title">Premium Deep-Tech Brand &amp; Domain for <span>Acquisition</span> &nbsp;·&nbsp; vishwastra.com</div>
   </div>
   <div class="acq-banner-right">
@@ -1272,7 +1327,12 @@ footer { position: relative; z-index: 1; background: var(--void); border-top: 1p
 </div>
 
 <!-- ══ STATUS TICKER ══ -->
-<div class="status-ticker">⚡ GLOBAL ACQUISITION OPEN &nbsp;·&nbsp; 2Cr+ GST &nbsp;·&nbsp; SOVEREIGN .COM &nbsp;·&nbsp; ESCROW-SECURED &nbsp;·&nbsp; SERIOUS BUYERS ONLY &nbsp;·&nbsp; AI · DEFENCE · CYBERSECURITY · QUANTUM · AEROSPACE</div>
+<div class="status-ticker">
+  <div class="ticker-inner">
+    <span class="ticker-text">⚡ GLOBAL ACQUISITION OPEN &nbsp;·&nbsp; 2Cr+ GST &nbsp;·&nbsp; SOVEREIGN .COM &nbsp;·&nbsp; ESCROW-SECURED &nbsp;·&nbsp; SERIOUS BUYERS ONLY &nbsp;·&nbsp; AI &nbsp;·&nbsp; DEFENCE &nbsp;·&nbsp; CYBERSECURITY &nbsp;·&nbsp; QUANTUM &nbsp;·&nbsp; AEROSPACE</span>
+    <span class="ticker-text">⚡ GLOBAL ACQUISITION OPEN &nbsp;·&nbsp; 2Cr+ GST &nbsp;·&nbsp; SOVEREIGN .COM &nbsp;·&nbsp; ESCROW-SECURED &nbsp;·&nbsp; SERIOUS BUYERS ONLY &nbsp;·&nbsp; AI &nbsp;·&nbsp; DEFENCE &nbsp;·&nbsp; CYBERSECURITY &nbsp;·&nbsp; QUANTUM &nbsp;·&nbsp; AEROSPACE</span>
+  </div>
+</div>
 
 <!-- ══ NAV ══ -->
 <nav>
@@ -2615,7 +2675,6 @@ const VishwastraSentinel = (() => {
     el.innerHTML = `<div style="display:flex;align-items:center;gap:1rem;">
       <div style="font-size:1.3rem;flex-shrink:0;">⚠</div>
       <div>
-        <div style="font-family:'Share Tech Mono',monospace;font-size:0.68rem;letter-spacing:0.22em;font-weight:900;margin-bottom:0.2rem;">SECURITY NOTICE · ${state.sessionId}</div>
         <div style="font-size:0.73rem;opacity:0.88;line-height:1.5;">${reason}<br><span style="opacity:0.65;">Violation #${state.violations} · vishwastra.com protected asset</span></div>
       </div></div>`;
     Object.assign(el.style, {
@@ -2650,34 +2709,11 @@ const VishwastraSentinel = (() => {
     }, true);
   }
 
-  /* ── Click Velocity (Bot Detection) ── */
-  function initClickDetector() {
-    const log = [];
-    document.addEventListener('click', () => {
-      const now = Date.now();
-      while (log.length && now - log[0] > CONFIG.CLICK_WINDOW_MS) log.shift();
-      log.push(now);
-      if (log.length > CONFIG.CLICK_THRESHOLD) {
-        showAlert('Rapid automated click pattern detected · Session flagged', 'critical');
-        log.length = 0;
-      }
-    }, true);
-  }
+  /* ── Click Velocity (Bot Detection) — popup disabled ── */
+  function initClickDetector() { /* popup removed — normal card/button clicks were triggering */ }
 
-  /* ── Scroll Scraper Detection ── */
-  function initScrollDetector() {
-    let last = Date.now(), rapid = 0;
-    window.addEventListener('scroll', () => {
-      const now = Date.now();
-      if (now - last < CONFIG.SCROLL_DEBOUNCE_MS) {
-        if (++rapid > CONFIG.SCROLL_THRESHOLD) {
-          showAlert('Automated scroll scraping detected · Access logged');
-          rapid = 0;
-        }
-      } else { rapid = 0; }
-      last = now;
-    }, { passive: true });
-  }
+  /* ── Scroll Scraper Detection — popup disabled ── */
+  function initScrollDetector() { /* popup removed — normal user scroll was triggering */ }
 
   /* ── DevTools Size-Diff Detector ── */
   function initDevToolsDetector() {
@@ -2806,6 +2842,24 @@ const VishwastraSentinel = (() => {
     getViolations() { return state.violations; }
   };
 })();
+
+/* ── Banner Toggle ── */
+let bannerOpen = true;
+function toggleBanner() {
+  const banner  = document.getElementById('acqBanner');
+  const ticker  = document.querySelector('.status-ticker');
+  const reopen  = document.getElementById('bannerReopen');
+  bannerOpen = !bannerOpen;
+  if (!bannerOpen) {
+    banner.classList.add('banner-hidden');
+    ticker.classList.add('ticker-top');
+    reopen.classList.add('visible');
+  } else {
+    banner.classList.remove('banner-hidden');
+    ticker.classList.remove('ticker-top');
+    reopen.classList.remove('visible');
+  }
+}
 
 VishwastraSentinel.init();
 </script>

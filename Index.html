@@ -130,20 +130,55 @@
       ],
       "offers": {
         "@type": "Offer",
+        "@id": "https://vishwastra.com/#offer",
         "priceCurrency": "INR",
         "price": "20000000",
         "priceValidUntil": "2026-12-31",
         "availability": "https://schema.org/InStock",
+        "itemCondition": "https://schema.org/NewCondition",
         "seller": {
           "@id": "https://vishwastra.com/#organization"
         },
         "description": "Starting from ₹2 Crore + GST. Final price subject to negotiation based on use case. Escrow-secured transfer via Dan.com, Afternic, or Escrow.com.",
         "url": "https://vishwastra.com/#acquire",
         "hasMerchantReturnPolicy": {
-          "@id": "https://vishwastra.com/#return-policy"
+          "@type": "MerchantReturnPolicy",
+          "@id": "https://vishwastra.com/#return-policy",
+          "applicableCountry": "IN",
+          "returnPolicyCategory": "https://schema.org/MerchantReturnFiniteReturnWindow",
+          "merchantReturnDays": 0,
+          "returnMethod": "https://schema.org/ReturnByMail",
+          "returnFees": "https://schema.org/FreeReturn",
+          "description": "This is a digital domain asset. All sales are final. The domain name and brand IP are delivered electronically via escrow-secured registrar push within 1-5 business days of confirmed payment. No physical goods are transferred."
         },
         "shippingDetails": {
-          "@id": "https://vishwastra.com/#shipping-details"
+          "@type": "OfferShippingDetails",
+          "@id": "https://vishwastra.com/#shipping-details",
+          "shippingRate": {
+            "@type": "MonetaryAmount",
+            "value": "0",
+            "currency": "INR"
+          },
+          "deliveryTime": {
+            "@type": "ShippingDeliveryTime",
+            "handlingTime": {
+              "@type": "QuantitativeValue",
+              "minValue": 1,
+              "maxValue": 5,
+              "unitCode": "DAY"
+            },
+            "transitTime": {
+              "@type": "QuantitativeValue",
+              "minValue": 0,
+              "maxValue": 0,
+              "unitCode": "DAY"
+            }
+          },
+          "shippingDestination": {
+            "@type": "DefinedRegion",
+            "addressCountry": "IN"
+          },
+          "description": "Digital asset delivery via registrar push (Dan.com, Afternic, or Escrow.com). No physical shipment. Transfer completes within 1-5 business days of full payment confirmation. Zero delivery cost."
         }
       },
       "additionalProperty": [
@@ -153,46 +188,6 @@
         { "@type": "PropertyValue", "name": "Ownership", "value": "Single Owner — No Disputes" },
         { "@type": "PropertyValue", "name": "Transfer Method", "value": "Escrow-Secured" }
       ]
-    },
-    {
-      "@type": "MerchantReturnPolicy",
-      "@id": "https://vishwastra.com/#return-policy",
-      "applicableCountry": "IN",
-      "returnPolicyCategory": "https://schema.org/MerchantReturnFiniteReturnWindow",
-      "merchantReturnDays": 0,
-      "returnMethod": "https://schema.org/ReturnByMail",
-      "returnFees": "https://schema.org/FreeReturn",
-      "description": "This is a digital domain asset. All sales are final. No physical goods are transferred; the domain name and brand IP are delivered electronically via escrow-secured registrar push within 1–5 business days of confirmed payment."
-    },
-    {
-      "@type": "OfferShippingDetails",
-      "@id": "https://vishwastra.com/#shipping-details",
-      "shippingRate": {
-        "@type": "MonetaryAmount",
-        "value": "0",
-        "currency": "INR"
-      },
-      "deliveryTime": {
-        "@type": "ShippingDeliveryTime",
-        "handlingTime": {
-          "@type": "QuantitativeValue",
-          "minValue": 1,
-          "maxValue": 5,
-          "unitCode": "DAY"
-        },
-        "transitTime": {
-          "@type": "QuantitativeValue",
-          "minValue": 0,
-          "maxValue": 0,
-          "unitCode": "DAY"
-        }
-      },
-      "shippingDestination": {
-        "@type": "DefinedRegion",
-        "addressCountry": "IN"
-      },
-      "doesNotShip": false,
-      "description": "Digital asset delivery. The domain is transferred electronically via registrar push (Dan.com, Afternic, or Escrow.com) — no physical shipment. Delivery completes within 1–5 business days of full payment confirmation. ₹0 delivery cost."
     },
     {
       "@type": "WebPage",

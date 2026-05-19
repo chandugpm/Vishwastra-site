@@ -1323,60 +1323,6 @@ footer { position: relative; z-index: 1; background: var(--void); border-top: 1p
 </head>
 <body>
 
-<!-- ══════════════════════════════════════════════════════
-     FORMSUBMIT ACTIVATION FORM
-     PURPOSE: Forces FormSubmit to send activation email to
-              ram@vishwastra.com via standard POST (not AJAX).
-     HOW TO USE:
-       1. Upload this page to vishwastra.com
-       2. Scroll to the very bottom — you'll see a small
-          teal "Activate FormSubmit" button
-       3. Click it — FormSubmit sends activation email to
-          ram@vishwastra.com
-       4. Check inbox (and spam) — click "Activate Form"
-       5. Once activated, DELETE this form block from the HTML
-          (everything between the two ACTIVATION FORM comments)
-     ════════════════════════════════════════════════════ -->
-<div id="fs-activate-wrap" style="
-  position:fixed; bottom:24px; right:24px; z-index:999999;
-  background:#0b1c2c; border:1px solid #00e5b8;
-  padding:1.2rem 1.6rem; max-width:280px;
-  font-family:'Barlow',sans-serif; box-shadow:0 8px 32px rgba(0,0,0,0.6);">
-  <div style="font-size:0.65rem;letter-spacing:0.25em;color:#00e5b8;text-transform:uppercase;margin-bottom:0.5rem;">
-    ⚙ FormSubmit Activation
-  </div>
-  <p style="font-size:0.78rem;color:#90b8d0;line-height:1.6;margin-bottom:0.9rem;">
-    Click once to trigger activation email to <strong style="color:#ddeef8;">ram@vishwastra.com</strong>. Then check inbox &amp; spam — click the link inside.
-  </p>
-  <form action="https://formsubmit.co/ram@vishwastra.com" method="POST"
-        target="_blank" style="margin:0;">
-    <input type="hidden" name="name"    value="FormSubmit Activation Test">
-    <input type="hidden" name="email"   value="ram@vishwastra.com">
-    <input type="hidden" name="message" value="FormSubmit activation triggered from vishwastra.com">
-    <input type="hidden" name="_subject" value="Vishwastra — FormSubmit Activation">
-    <input type="hidden" name="_next"   value="https://vishwastra.com">
-    <button type="submit" style="
-      width:100%; padding:0.7rem 1rem;
-      background:transparent; border:1px solid #00e5b8;
-      color:#00e5b8; font-size:0.78rem; letter-spacing:0.1em;
-      text-transform:uppercase; cursor:pointer;
-      font-family:'Barlow',sans-serif;
-      transition:all 0.2s ease;"
-      onmouseover="this.style.background='rgba(0,229,184,0.1)'"
-      onmouseout="this.style.background='transparent'">
-      ⊕ Activate FormSubmit
-    </button>
-  </form>
-  <div style="margin-top:0.6rem;text-align:right;">
-    <button onclick="document.getElementById('fs-activate-wrap').style.display='none'"
-      style="background:none;border:none;color:#6090b0;font-size:0.7rem;cursor:pointer;
-             font-family:'Barlow',sans-serif;letter-spacing:0.05em;">
-      Hide
-    </button>
-  </div>
-</div>
-<!-- ══ END FORMSUBMIT ACTIVATION FORM ══ -->
-
 <!-- ══ TOP ACQUISITION BANNER ══ -->
 <button class="banner-reopen" id="bannerReopen" onclick="toggleBanner()">⊕ FOR SALE — CLICK TO EXPAND</button>
 <div class="acq-banner" id="acqBanner">
